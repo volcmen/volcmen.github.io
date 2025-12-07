@@ -1,0 +1,409 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Fonts */
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-display: var(--font-rajdhani), sans-serif;
+
+  /* Primary - Electric Amber (Neon Gold) */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+
+  /* Secondary - Hologram Cyan */
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-glow: var(--secondary-glow);
+
+  /* UI Colors */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Special Effects */
+  --color-grid: var(--grid-color);
+  --color-scanline: var(--scanline-color);
+
+  /* Radii */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+
+  /* Animations */
+  --animate-grid-flow: grid-flow 20s linear infinite;
+
+  @keyframes grid-flow {
+    0% {
+      background-position: 0 0, 0 0, 40px 70px;
+    }
+
+    100% {
+      background-position: 0 140px, 0 140px, 40px 210px;
+    }
+  }
+
+  @keyframes gradient-x {
+
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: left center;
+    }
+
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+    }
+
+    50% {
+      box-shadow: 0 0 40px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3);
+    }
+  }
+
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+    }
+
+    20% {
+      transform: translate(-2px, 2px);
+    }
+
+    40% {
+      transform: translate(-2px, -2px);
+    }
+
+    60% {
+      transform: translate(2px, 2px);
+    }
+
+    80% {
+      transform: translate(2px, -2px);
+    }
+
+    100% {
+      transform: translate(0);
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+
+    100% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  @keyframes float-particle {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0.1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      transform: translate(30px, -50px);
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes tech-pulse {
+
+    0%,
+    100% {
+      opacity: 0.1;
+    }
+
+    50% {
+      opacity: 0.25;
+    }
+  }
+
+  @keyframes matrix-fall {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+}
+
+/* Base Variables */
+:root {
+  --radius: 0.25rem;
+  /* Chamfered/Sharp look */
+
+  /* Dark Mode Default (Neural-Link Void) */
+  --background: hsl(240 10% 3.5%);
+  /* Deeper void black */
+  --foreground: hsl(240 5% 98%);
+  /* Enhanced high contrast text */
+
+  --card: hsl(240 10% 5%);
+  --card-foreground: hsl(240 5% 98%);
+  --popover: hsl(240 10% 5%);
+  --popover-foreground: hsl(240 5% 98%);
+
+  --primary: hsl(45 98% 58%);
+  /* Brighter Neon Gold */
+  --primary-foreground: hsl(240 10% 4%);
+  --primary-glow: hsl(45 100% 68%);
+
+  --secondary: hsl(189 96% 45%);
+  /* Enhanced Hologram Cyan */
+  --secondary-foreground: hsl(240 10% 4%);
+  --secondary-glow: hsl(189 100% 65%);
+
+  --muted: hsl(240 7% 11%);
+  /* Slightly lighter muted */
+  --muted-foreground: hsl(240 5% 68%);
+  /* Better readability */
+
+  --accent: hsl(240 6% 10%);
+  /* Darker accent for contrast */
+  --accent-foreground: hsl(45 96% 56%);
+  /* Gold text on accent */
+
+  --destructive: hsl(0 86% 62%);
+  /* Slightly brighter red */
+  --destructive-foreground: hsl(240 10% 4%);
+
+  --border: hsl(240 7% 18%);
+  /* More visible borders */
+  --input: hsl(240 7% 18%);
+  --ring: hsl(45 98% 58%);
+
+
+
+  /* Chart colors mapped to theme */
+  --chart-1: var(--primary);
+  --chart-2: var(--secondary);
+  --chart-3: var(--accent);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+}
+
+.light {
+  /* Premium Slate Palette (Tailwind-like) */
+  --background: hsl(210 40% 98%); /* Slate 50 - Paper White */
+  --foreground: hsl(222 47% 11%); /* Slate 950 - Sharp Text */
+
+  --card: hsl(0 0% 100%); /* Pure White Cards */
+  --card-foreground: hsl(222 47% 11%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222 47% 11%);
+
+  --primary: hsl(45 93% 47%); /* Adjusted Amber for Light Mode contrast */
+  --primary-foreground: hsl(0 0% 100%);
+  --primary-glow: hsl(45 100% 50%);
+
+  --secondary: hsl(189 94% 43%); /* Deep Cyan for readability */
+  --secondary-foreground: hsl(0 0% 100%);
+  --secondary-glow: hsl(189 100% 40%);
+
+  --muted: hsl(210 40% 96.1%); /* Slate 100 */
+  --muted-foreground: hsl(215.4 16.3% 46.9%); /* Slate 500 */
+
+  --accent: hsl(210 40% 96.1%); /* Slate 100 */
+  --accent-foreground: hsl(222 47% 11%);
+
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
+
+  --border: hsl(214.3 31.8% 91.4%); /* Slate 200 */
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(43 96% 64%); /* Softer Gold Ring */
+
+  --grid-color: hsl(214.3 31.8% 91.4%); /* Slate 200 Grid */
+  --scanline-color: rgba(6, 182, 212, 0.05);
+
+
+  --chart-1: var(--primary);
+  --chart-2: var(--secondary);
+  --chart-3: var(--accent);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+}
+
+/* Utility Classes for Effects */
+@layer utilities {
+  .text-glow {
+    text-shadow:
+      0 0 20px var(--primary-glow),
+      0 0 40px var(--primary-glow),
+      0 0 60px rgba(251, 191, 36, 0.4);
+  }
+
+  .text-glow-cyan {
+    text-shadow:
+      0 0 20px var(--secondary-glow),
+      0 0 40px var(--secondary-glow),
+      0 0 60px rgba(6, 182, 212, 0.4);
+  }
+
+  .box-glow {
+    box-shadow:
+      0 0 20px rgba(251, 191, 36, 0.2),
+      inset 0 0 15px rgba(251, 191, 36, 0.1),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .border-glow {
+    box-shadow:
+      0 0 10px var(--secondary-glow),
+      inset 0 0 10px var(--secondary-glow);
+  }
+
+  .scanlines {
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        var(--scanline-color) 2px,
+        var(--scanline-color) 4px);
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .hex-grid {
+    background-image:
+      linear-gradient(30deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color)),
+      linear-gradient(150deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color)),
+      linear-gradient(30deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color));
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px;
+    opacity: 0.1;
+  }
+
+  .animate-gradient-x {
+    animation: gradient-x 4s ease infinite;
+  }
+
+  .animate-glitch {
+    animation: glitch 1s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display uppercase tracking-wider;
+    font-feature-settings: "ss01", "ss02";
+    line-height: 1.1;
+  }
+
+  /* Improved text rendering */
+  h1 {
+    @apply text-balance;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-primary/30 text-primary;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 hover:bg-primary/50;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/70;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.3) hsl(var(--background));
+  }
+}

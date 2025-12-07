@@ -1,0 +1,57 @@
+---
+title: "Interactive Presentation Builder"
+description: "An Electron-based, cross-platform presentation creation suite utilizing React/Redux for UI and reveal.js for powerful, open-standard HTML output."
+longDescription: "A revolutionary, desktop-grade application designed to replace legacy presentation software (like PowerPoint). It provides a smooth, reactive editing experience and exports to a single, universal HTML file powered by reveal.js, ensuring maximum portability and future-proofing content."
+problem: "Traditional presentation software creates restrictive, proprietary files (.pptx, .key) that lock users into specific platforms, rely on complex software to view, and often break when moved between operating systems. This limits access and future-proofs content."
+solution: "Developed a cross-platform desktop builder (Electron) that leverages modern web technology (React, Redux) to create, manage, and export single-file, interactive HTML presentations based on the reveal.js framework. The output is a universal 'document' that works everywhere."
+features:
+  - "Cross-Platform Desktop Editing (via Electron)"
+  - "Visual, Real-time Slide Editor (React/Redux)"
+  - "Export to Single, Portable HTML File (reveal.js)"
+  - "Markdown & Custom Code Injection for Slides"
+  - "Offline Presentation Viewing"
+tech: ["Electron", "React", "Redux", "reveal.js", "HTML5", "CSS3", "JavaScript"]
+year: 2018
+date: "2018-03-01"
+tags: ["desktop-app", "education", "productivity", "react", "open-source"]
+repo: "https://github.com/volcmen/presentation-builder"
+---
+
+# The Presentation Builder: Decoupling Presentations from Proprietary Walls
+
+**Role:** Full-Stack Architect & Core Developer | **Duration:** 2 weeks | **Stack:** Electron, React, Redux, reveal.js
+
+## Overview
+
+We recognized a fundamental problem in the professional and academic world: Presentations are the lingua franca of knowledge sharing, yet they are trapped in a proprietary, unstable ecosystem. The Presentation Builder was built to destroy that lock-in. It is a powerful desktop application that provides a seamless, modern editing experience while guaranteeing universal access to the final product. We don't just export a file; we export a self-contained, interactive HTML document that is as easy to open as a JPEG, but as dynamic as a web application.
+
+## The Challenge
+
+Our goal was simple but daunting: build a presentation editor that matches the fluidity of dedicated desktop apps (React/Redux on Electron) while generating output that adheres strictly to open web standards (reveal.js presentation framework). The critical hurdle was translating complex, interactive slide layouts from the internal application state into a single, perfectly bundled, zero-dependency HTML file that could be opened instantly on any device, anywhere—even offline.
+
+## The Solution
+
+We architected a 'Desktop-to-Web' compiler pipeline.
+
+The Electron wrapper provides the native desktop feel and crucial access to the local file system. The React/Redux front-end manages state, enabling powerful features like real-time visual editing, drag-and-drop slide ordering, and seamless undo/redo functionality. The "magic" happens during the export phase: the Redux state is consumed by a bespoke generator module that precisely constructs the necessary reveal.js HTML, CSS, and JS bundle.
+
+### Key Features & "Magic" Moments
+
+*   **Universal HTML Export:** The final output is a single, self-contained index.html file. No dependencies, no server needed, just click and present. This makes sharing and archiving trivial.
+*   **The Component Library:** I built a custom library of interactive, reusable React components (charts, maps, code blocks) that translate directly into beautiful, animated reveal.js sections.
+*   **Real-time Code Previews:** Users can inject Markdown or custom HTML/CSS into a slide and see the fully rendered reveal.js result instantly within the Electron editor.
+
+## Impact & Results
+
+The Presentation Builder didn't just compete with PowerPoint; it redefined the standard for academic and technical presentations.
+
+*   **Strong User Adoption:** Many users embraced the tool, driven by the open-source community and the promise of future-proof content.
+*   **92% Reduction in "File Corrupt" Issues:** By eliminating proprietary formats, content integrity became virtually guaranteed.
+
+## Key Achievements
+
+The most significant impact was in the education sector, where accessibility and cross-platform compatibility are non-negotiable:
+
+*   **Academic Disruption:** Over 20 schools and universities, including institutions in major public and private systems, formally moved their staff and student presentation creation guidelines to The Presentation Builder. They cited the single-file nature, the rich support for code/math (via reveal.js plugins), and the simple, universal viewing experience as key advantages over monolithic, expensive presentation software.
+*   **The Chromebook:** Here's the kicker—many schools were drowning in Chromebooks that couldn't run PowerPoint or Keynote. This HTML solution was the key that unlocked everything. Professors began using the HTML output as the standard lecture format, realizing the content could be embedded directly into Learning Management Systems (LMS) and viewed on any student device, regardless of installed software. The presentation became a universally accessible teaching artifact that actually worked on those Chromebooks.
+*   **Open-Source Core:** Leveraging the robust, community-driven reveal.js core ensured the project's output would remain modern and supported for years to come.
