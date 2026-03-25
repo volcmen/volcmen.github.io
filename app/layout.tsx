@@ -27,8 +27,21 @@ export const metadata: Metadata = {
   description: 'Senior Architect. Peeking behind the curtain of the web to build robust systems and retro-fueled experiences.',
 
   applicationName: 'VOLCMEN_OS_V8',
-  keywords: ['Full Stack', 'Cyberpunk', 'System Architect', 'Game Dev', 'React', 'Next.js'],
+  keywords: ['Full Stack', 'Cyberpunk', 'System Architect', 'Game Dev', 'React', 'Next.js', 'TypeScript', 'Node.js'],
   authors: [{ name: 'Volcmen' }],
+
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'VOLCMEN_OS_V8',
+    title: 'SYNAPTIC UPLINK // VOLCMEN',
+    description: 'Senior Architect. Peeking behind the curtain of the web to build robust systems and retro-fueled experiences.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SYNAPTIC UPLINK // VOLCMEN',
+    description: 'Senior Architect. Building robust systems and retro-fueled experiences.',
+  },
 };
 
 export default function RootLayout({
