@@ -1,8 +1,9 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import * as m from 'motion/react-m';
 import { useTime, useTransform, type MotionValue } from 'motion/react';
+import { mulberry32 } from '@/lib/prng';
 
 const HEX_SIZE = 40;
 const NEURON_COUNT = 10;
@@ -11,10 +12,7 @@ const VERT_DIST = HEX_SIZE * 1.5;
 const GRID_COLS = 60;
 const GRID_ROWS = 50;
 
-function seededRandom(seed: number) {
-  const x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
-}
+const SEED_KEY = 'hex_grid_seed';
 
 interface Neuron {
   id: number;
@@ -25,14 +23,8 @@ interface Neuron {
   color: string;
 }
 
-function generateNeuron(index: number): Neuron {
-  let seed = index * 123.45; // Initial seed based on index
-
-  const rand = () => {
-    const r = seededRandom(seed);
-    seed += 1;
-    return r;
-  };
+function generateNeuron(index: number, sessionSeed: number): Neuron {
+  const rand = mulberry32(sessionSeed + index * 1000);
 
   const generatePath = () => {
     let cx = Math.floor(rand() * GRID_COLS) * W;
@@ -61,7 +53,6 @@ function generateNeuron(index: number): Neuron {
       currentY += dir.dy;
       path += ` L ${currentX} ${currentY}`;
 
-      // 30% chance to create a branch at each step (Deterministic)
       if (rand() > 0.7) {
         const branchSteps = 2 + Math.floor(rand() * 4);
         let branchX = currentX;
@@ -74,7 +65,6 @@ function generateNeuron(index: number): Neuron {
           path += ` L ${branchX} ${branchY}`;
         }
 
-        // Return to trunk
         path += ` M ${currentX} ${currentY}`;
       }
     }
@@ -92,10 +82,42 @@ function generateNeuron(index: number): Neuron {
   };
 }
 
-const NEURONS = Array.from({ length: NEURON_COUNT }).map((_, i) => generateNeuron(i));
+function getSessionSeed(): number {
+  try {
+    const stored = sessionStorage.getItem(SEED_KEY);
+    if (stored !== null) return Number(stored);
+    const seed = (Math.random() * 0xFFFFFFFF) >>> 0;
+    sessionStorage.setItem(SEED_KEY, seed.toString());
+    return seed;
+  } catch {
+    return (Math.random() * 0xFFFFFFFF) >>> 0;
+  }
+}
+
+function useNeurons(): Neuron[] {
+  const [neurons, setNeurons] = useState<Neuron[]>([]);
+
+  useEffect(() => {
+    const seed = getSessionSeed();
+    setNeurons(Array.from({ length: NEURON_COUNT }, (_, i) => generateNeuron(i, seed)));
+  }, []);
+
+  return neurons;
+}
+
+function usePageVisible() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handler = () => setVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', handler);
+    return () => document.removeEventListener('visibilitychange', handler);
+  }, []);
+
+  return visible;
+}
 
 const NeuronPath = memo(function NeuronPath({ neuron, time }: { neuron: Neuron; time: MotionValue<number> }) {
-  // Derive all animations from the single time source
   const neuronTime = useTransform(
     time,
     t => (t - neuron.delay * 1000) / (neuron.duration * 1000),
@@ -152,6 +174,8 @@ const NeuronPath = memo(function NeuronPath({ neuron, time }: { neuron: Neuron; 
 
 export function HexGrid() {
   const time = useTime();
+  const neurons = useNeurons();
+  const isVisible = usePageVisible();
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none bg-transparent">
@@ -184,13 +208,15 @@ export function HexGrid() {
 
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
 
-      <svg className="absolute inset-0 size-full">
-        <g>
-          {NEURONS.map(neuron => (
-            <NeuronPath key={neuron.id} neuron={neuron} time={time} />
-          ))}
-        </g>
-      </svg>
+      {isVisible && (
+        <svg className="absolute inset-0 size-full">
+          <g>
+            {neurons.map(neuron => (
+              <NeuronPath key={neuron.id} neuron={neuron} time={time} />
+            ))}
+          </g>
+        </svg>
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background opacity-80" />
     </div>
   );

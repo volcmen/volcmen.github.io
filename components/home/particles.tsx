@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 import * as m from 'motion/react-m';
+import { mulberry32 } from '@/lib/prng';
 
 const PARTICLE_COUNT = 20;
 const GOLDEN_RATIO_CONJUGATE = 0.61803398875;
@@ -15,18 +16,6 @@ interface ParticleProps {
 }
 
 type ParticleConfig = ParticleProps & { id: number };
-
-// Small, deterministic PRNG keeps particle positions stable even under Strict Mode double renders.
-const mulberry32 = (seed: number) => {
-  let state = seed;
-  return () => {
-    state |= 0;
-    state = (state + 0x6d2b79f5) | 0;
-    let t = Math.imul(state ^ (state >>> 15), 1 | state);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-};
 
 const Particle = memo(function Particle({ initialX, initialY, animateY, duration, delay }: ParticleProps) {
   return (
