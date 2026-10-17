@@ -28,7 +28,6 @@ export function ProjectHeader({ title, slug, year, tech, image, className }: Pro
         className="absolute inset-0 bg-cover bg-center opacity-30 blur-sm"
         style={{ backgroundImage: `url(${image || ''})` }}
       />
-      <div className="absolute inset-0 z-0 bg-[url('/grid.svg')] opacity-20" />
 
       <div className="relative z-20 container mx-auto flex h-full flex-col justify-end px-4 pb-12">
         <m.div
