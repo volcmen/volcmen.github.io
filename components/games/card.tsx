@@ -72,14 +72,16 @@ export function Card({ game, delay = 0, className }: CardProps) {
         )}
       >
         <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-secondary/5 to-primary/5">
-          <Image
-            src={imagePath}
-            alt={title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            onError={handleImageError}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {!isInDevelopment && (
+            <Image
+              src={imagePath}
+              alt={title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              onError={handleImageError}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-card/20 to-transparent" />
 
           {badges.length > 0 && (
@@ -133,7 +135,7 @@ export function Card({ game, delay = 0, className }: CardProps) {
           )}
         </CardHeader>
 
-        <CardContent className="flex-grow space-y-4 pb-4">
+        <CardContent className="grow space-y-4 pb-4">
           <p
             className={cn(
               'font-mono text-sm leading-relaxed',

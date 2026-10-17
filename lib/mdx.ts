@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import matter from 'gray-matter';
+import { VFile } from 'vfile';
+import { matter } from 'vfile-matter';
 
 export interface Project {
   slug: string;
@@ -57,8 +58,9 @@ const parseYear = (rawYear?: number, rawDate?: RawFrontmatter['date']) => {
 const readProjectFile = (slug: string) => {
   const fullPath = path.join(PROJECTS_DIR, `${slug}.mdx`);
   if (!fs.existsSync(fullPath)) return null;
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  return matter(fileContents);
+  const file = new VFile(fs.readFileSync(fullPath, 'utf8'));
+  matter(file, { strip: true });
+  return { data: file.data.matter, content: String(file) };
 };
 
 const getProjectImages = (slug: string): string[] => {
