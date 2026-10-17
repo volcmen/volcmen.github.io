@@ -1,12 +1,13 @@
-import { getAllProjects, getProjectBySlug } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
-import { ProjectHeader } from '@/components/projects/detail/header';
+
 import { ProjectContent } from '@/components/projects/detail/content';
-import { ProjectSystemOverview } from '@/components/projects/detail/system-overview';
-import { ProjectProblemSolution } from '@/components/projects/detail/problem-solution';
 import { ProjectGallery } from '@/components/projects/detail/gallery';
-import { ProjectSpecifications } from '@/components/projects/detail/specifications';
+import { ProjectHeader } from '@/components/projects/detail/header';
+import { ProjectProblemSolution } from '@/components/projects/detail/problem-solution';
 import { ProjectSidebar } from '@/components/projects/detail/sidebar';
+import { ProjectSpecifications } from '@/components/projects/detail/specifications';
+import { ProjectSystemOverview } from '@/components/projects/detail/system-overview';
+import { getAllProjects, getProjectBySlug } from '@/lib/mdx';
 
 export function generateStaticParams() {
   const projects = getAllProjects();
@@ -34,33 +35,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       />
 
       <ProjectContent>
-        <div className="lg:col-span-2 space-y-12">
-          <ProjectSystemOverview
-            description={project.longDescription || project.description}
-          />
+        <div className="space-y-12 lg:col-span-2">
+          <ProjectSystemOverview description={project.longDescription || project.description} />
 
-          <ProjectProblemSolution
-            problem={project.problem}
-            solution={project.solution}
-          />
+          <ProjectProblemSolution problem={project.problem} solution={project.solution} />
 
-          <ProjectGallery
-            images={project.images}
-            title={project.title}
-          />
+          <ProjectGallery images={project.images} title={project.title} />
 
-          {project.content && (
-            <ProjectSpecifications
-              content={project.content}
-            />
-          )}
+          {project.content && <ProjectSpecifications content={project.content} />}
         </div>
 
-        <ProjectSidebar
-          link={project.link}
-          repo={project.repo}
-          features={project.features}
-        />
+        <ProjectSidebar link={project.link} repo={project.repo} features={project.features} />
       </ProjectContent>
     </main>
   );

@@ -28,7 +28,8 @@ const GAMES_CONFIG: GameConfig[] = [
     id: 'doom',
     title: 'DOOM',
     description: 'The legendary 1993 first-person shooter',
-    content: 'My first demon-slaying gig at age 4-5 on grandpa\'s MS-DOS rig—loaded from those chunky 8-inch floppies. Spent countless hours mastering IDDQD and IDKFA, even on Nightmare (yes, I still have the muscle memory). Now running natively in your browser via WebAssembly. No floppy drive required.',
+    content:
+      "My first demon-slaying gig at age 4-5 on grandpa's MS-DOS rig—loaded from those chunky 8-inch floppies. Spent countless hours mastering IDDQD and IDKFA, even on Nightmare (yes, I still have the muscle memory). Now running natively in your browser via WebAssembly. No floppy drive required.",
     href: '/games/doom',
     icon: Gamepad2,
     badges: [
@@ -47,7 +48,8 @@ const GAMES_CONFIG: GameConfig[] = [
     id: 'proz-zero-game',
     title: 'Proz Zero Game',
     description: 'A top-down ballistic survival simulation.',
-    content: 'Executing a primary directive held in memory since childhood: architect the ultimate top-down chaos engine. A relentless fusion of \'Vampire Survivors\' swarm logic and \'Diablo\' atmospheric grit, optimized for maximum kinetic satisfaction.',
+    content:
+      "Executing a primary directive held in memory since childhood: architect the ultimate top-down chaos engine. A relentless fusion of 'Vampire Survivors' swarm logic and 'Diablo' atmospheric grit, optimized for maximum kinetic satisfaction.",
     href: 'https://proz-zero-game.volc.men/',
     icon: Crosshair,
     badges: [

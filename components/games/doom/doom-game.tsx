@@ -1,8 +1,9 @@
 'use client';
 
+import { Maximize, Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
-import { Play, Maximize } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 declare global {
@@ -86,8 +87,7 @@ export function DoomGame({ className }: DoomGameProps) {
     if (audioCtx?.close && audioCtx.state !== 'closed') {
       try {
         void audioCtx.close();
-      }
-      catch (err) {
+      } catch (err) {
         console.warn('Failed to close Doom audio context', err);
       }
     }
@@ -144,8 +144,7 @@ export function DoomGame({ className }: DoomGameProps) {
         const fs = window.Module?.FS;
         if (fs?.createPreloadedFile) {
           fs.createPreloadedFile('', 'doom1.wad', `${BASE_PATH}/doom/doom1.wad`, true, true);
-        }
-        else {
+        } else {
           console.warn('Emscripten FS not ready to preload WAD');
         }
       },
@@ -182,7 +181,8 @@ export function DoomGame({ className }: DoomGameProps) {
       },
       totalDependencies: 0,
       monitorRunDependencies: function (left: number) {
-        const currentTotal = typeof this.totalDependencies === 'number' ? this.totalDependencies : 0;
+        const currentTotal =
+          typeof this.totalDependencies === 'number' ? this.totalDependencies : 0;
         this.totalDependencies = Math.max(currentTotal, left);
         console.log('Dependencies remaining:', left);
         if (!isMounted.current) return;
@@ -225,8 +225,7 @@ export function DoomGame({ className }: DoomGameProps) {
     if (canvasRef.current) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
-      }
-      else {
+      } else {
         canvasRef.current.requestFullscreen();
       }
     }
@@ -234,25 +233,28 @@ export function DoomGame({ className }: DoomGameProps) {
 
   return (
     <>
-      <div className={cn('relative w-full max-w-4xl aspect-[4/3] bg-black rounded-lg overflow-hidden shadow-2xl border border-border', className)}>
+      <div
+        className={cn(
+          'relative aspect-[4/3] w-full max-w-4xl overflow-hidden rounded-lg border border-border bg-black shadow-2xl',
+          className,
+        )}
+      >
         {!started && !loading && !error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80">
             <Button size="lg" onClick={startGame}>
-              <Play className="mr-2 size-4" />
-              {' '}
-              Start Game
+              <Play className="mr-2 size-4" /> Start Game
             </Button>
           </div>
         )}
 
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10 text-foreground">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 text-foreground">
             Loading Engine...
           </div>
         )}
 
         {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/90 z-10 text-destructive p-4 text-center">
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/90 p-4 text-center text-destructive">
             {error}
           </div>
         )}
@@ -271,7 +273,7 @@ export function DoomGame({ className }: DoomGameProps) {
         <canvas
           ref={canvasRef}
           id="canvas"
-          className="w-full h-full block outline-none cursor-crosshair"
+          className="block h-full w-full cursor-crosshair outline-none"
           onContextMenu={e => e.preventDefault()}
           onClick={() => canvasRef.current?.focus()}
           tabIndex={0}
@@ -280,14 +282,20 @@ export function DoomGame({ className }: DoomGameProps) {
 
       <div className="mt-10 w-full max-w-4xl text-sm text-muted-foreground">
         <div className="rounded-2xl border border-border/60 bg-gradient-to-br from-background/70 via-background/40 to-background/70 px-5 py-6 shadow-[0_10px_50px_-20px_rgba(0,0,0,0.6)] backdrop-blur">
-          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.08em] text-foreground/80 font-semibold mb-4">
-            <span className="inline-flex size-7 items-center justify-center rounded-full border border-border/70 bg-background/90 shadow-inner">?</span>
+          <div className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.08em] text-foreground/80 uppercase">
+            <span className="inline-flex size-7 items-center justify-center rounded-full border border-border/70 bg-background/90 shadow-inner">
+              ?
+            </span>
             <span className="text-sm">Controls</span>
-            <span className="text-[11px] font-normal text-foreground/60">Fast reference for keys</span>
+            <span className="text-[11px] font-normal text-foreground/60">
+              Fast reference for keys
+            </span>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="space-y-2">
-              <div className="text-[11px] uppercase tracking-[0.08em] text-foreground/60">Movement</div>
+              <div className="text-[11px] tracking-[0.08em] text-foreground/60 uppercase">
+                Movement
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {['W', 'A', 'S', 'D'].map(key => (
                   <kbd
@@ -310,30 +318,44 @@ export function DoomGame({ className }: DoomGameProps) {
               </div>
             </div>
             <div className="space-y-2">
-              <div className="text-[11px] uppercase tracking-[0.08em] text-foreground/60">Actions</div>
+              <div className="text-[11px] tracking-[0.08em] text-foreground/60 uppercase">
+                Actions
+              </div>
               <div className="flex items-center gap-2">
-                <kbd className="inline-flex h-8 min-w-[2.7rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">Ctrl</kbd>
+                <kbd className="inline-flex h-8 min-w-[2.7rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">
+                  Ctrl
+                </kbd>
                 <span className="text-[12px] text-foreground/75">Fire</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">Space</kbd>
+                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">
+                  Space
+                </kbd>
                 <span className="text-[12px] text-foreground/75">Use / Open</span>
               </div>
             </div>
             <div className="space-y-2">
-              <div className="text-[11px] uppercase tracking-[0.08em] text-foreground/60">Run & Weapons</div>
+              <div className="text-[11px] tracking-[0.08em] text-foreground/60 uppercase">
+                Run & Weapons
+              </div>
               <div className="flex items-center gap-2">
-                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">Shift</kbd>
+                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">
+                  Shift
+                </kbd>
                 <span className="text-[12px] text-foreground/75">Run</span>
               </div>
               <div className="flex items-center gap-2">
-                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">1-9</kbd>
+                <kbd className="inline-flex h-8 min-w-[3.1rem] items-center justify-center rounded-lg border border-border/70 bg-background/90 px-2 text-xs font-semibold shadow-sm ring-1 ring-border/30">
+                  1-9
+                </kbd>
                 <span className="text-[12px] text-foreground/75">Switch weapons</span>
               </div>
             </div>
           </div>
         </div>
-        <p className="mt-4 text-center text-xs text-foreground/65">This uses the Shareware WAD and a WebAssembly port of the Doom engine.</p>
+        <p className="mt-4 text-center text-xs text-foreground/65">
+          This uses the Shareware WAD and a WebAssembly port of the Doom engine.
+        </p>
       </div>
     </>
   );

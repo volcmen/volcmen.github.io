@@ -1,7 +1,8 @@
 'use client';
 
-import { memo } from 'react';
 import * as m from 'motion/react-m';
+import { memo } from 'react';
+
 import { mulberry32 } from '@/lib/prng';
 
 const PARTICLE_COUNT = 20;
@@ -17,10 +18,16 @@ interface ParticleProps {
 
 type ParticleConfig = ParticleProps & { id: number };
 
-const Particle = memo(function Particle({ initialX, initialY, animateY, duration, delay }: ParticleProps) {
+const Particle = memo(function Particle({
+  initialX,
+  initialY,
+  animateY,
+  duration,
+  delay,
+}: ParticleProps) {
   return (
     <m.div
-      className="absolute w-1 h-1 bg-primary/30 rounded-full"
+      className="absolute h-1 w-1 rounded-full bg-primary/30"
       style={{ left: initialX, top: initialY }}
       initial={{ opacity: 0 }}
       animate={{
@@ -57,7 +64,7 @@ const PRECOMPUTED_PARTICLES = createParticles();
 
 export const Particles = memo(function Particles() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {PRECOMPUTED_PARTICLES.map(particle => (
         <Particle
           key={particle.id}

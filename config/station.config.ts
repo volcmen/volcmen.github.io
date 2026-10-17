@@ -1,13 +1,5 @@
-import {
-  Atom,
-  Bot,
-  CassetteTape,
-  Music2,
-  Orbit,
-  Radio,
-  Waves,
-  Zap,
-} from 'lucide-react';
+import { Atom, Bot, CassetteTape, Music2, Orbit, Radio, Waves, Zap } from 'lucide-react';
+
 import { BaseConfigItem } from './types';
 
 interface Station extends BaseConfigItem {
@@ -123,7 +115,6 @@ const STATIONS: Station[] = [
     },
     url: 'https://www.youtube.com/watch?v=YAzCJINGWGM',
   },
-
 ];
 
 export { STATIONS };

@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { stagger, useAnimate } from 'motion/react';
 import * as m from 'motion/react-m';
-import { useAnimate, stagger } from 'motion/react';
+import { useEffect, useState } from 'react';
+
 import { InitWindow } from '@/components/init-window';
 
-const FULL_TEXT = '> INITIALIZING SYNAPTIC BRIDGE... \n> LOADING KERNEL v13.3.7 (STABLE)... \n> DECRYPTING ASSETS: [||||||||||] 100% \n> IDENTITY CONFIRMED: VOLCMEN \n> WELCOME TO THE NETWORK.';
+const FULL_TEXT =
+  '> INITIALIZING SYNAPTIC BRIDGE... \n> LOADING KERNEL v13.3.7 (STABLE)... \n> DECRYPTING ASSETS: [||||||||||] 100% \n> IDENTITY CONFIRMED: VOLCMEN \n> WELCOME TO THE NETWORK.';
 const POST_COMPLETION_DELAY_MS = 2500;
 const CHARACTERS = FULL_TEXT.split('').map((char, index) => ({
   char,
@@ -34,7 +36,7 @@ export function TerminalIntro({ onComplete, onClose }: TerminalIntroProps) {
       setIsTypingDone(true);
 
       // Wait for the post-completion delay
-      await new Promise((resolve) => {
+      await new Promise(resolve => {
         timeoutId = setTimeout(resolve, POST_COMPLETION_DELAY_MS);
       });
 
@@ -56,24 +58,18 @@ export function TerminalIntro({ onComplete, onClose }: TerminalIntroProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="w-full max-w-3xl mx-auto flex items-center justify-center min-h-screen absolute inset-0 z-50 pointer-events-none"
+      className="pointer-events-none absolute inset-0 z-50 mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center"
     >
-      <div className="w-full max-w-3xl px-4 pointer-events-auto">
-        <InitWindow
-          title="/home/volcmen/synaptic/init.sh"
-          onClose={onClose}
-        >
+      <div className="pointer-events-auto w-full max-w-3xl px-4">
+        <InitWindow title="/home/volcmen/synaptic/init.sh" onClose={onClose}>
           <div
             ref={scope}
-            className="whitespace-pre-wrap min-h-[120px] font-mono text-sm md:text-base leading-relaxed"
+            className="min-h-[120px] font-mono text-sm leading-relaxed whitespace-pre-wrap md:text-base"
             role="status"
             aria-live="polite"
           >
             {CHARACTERS.map(character => (
-              <span
-                key={character.id}
-                className="char opacity-0 hidden"
-              >
+              <span key={character.id} className="char hidden opacity-0">
                 {character.char}
               </span>
             ))}
@@ -82,7 +78,7 @@ export function TerminalIntro({ onComplete, onClose }: TerminalIntroProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
-                className="inline-block ml-1 text-primary align-text-bottom"
+                className="ml-1 inline-block align-text-bottom text-primary"
               >
                 ▊
               </m.span>

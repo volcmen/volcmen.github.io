@@ -1,8 +1,9 @@
 'use client';
 
-import { memo, useState, useEffect } from 'react';
+import { type MotionValue, useTime, useTransform } from 'motion/react';
 import * as m from 'motion/react-m';
-import { useTime, useTransform, type MotionValue } from 'motion/react';
+import { memo, useEffect, useState } from 'react';
+
 import { mulberry32 } from '@/lib/prng';
 
 const HEX_SIZE = 40;
@@ -86,11 +87,11 @@ function getSessionSeed(): number {
   try {
     const stored = sessionStorage.getItem(SEED_KEY);
     if (stored !== null) return Number(stored);
-    const seed = (Math.random() * 0xFFFFFFFF) >>> 0;
+    const seed = (Math.random() * 0xffffffff) >>> 0;
     sessionStorage.setItem(SEED_KEY, seed.toString());
     return seed;
   } catch {
-    return (Math.random() * 0xFFFFFFFF) >>> 0;
+    return (Math.random() * 0xffffffff) >>> 0;
   }
 }
 
@@ -99,6 +100,7 @@ function useNeurons(): Neuron[] {
 
   useEffect(() => {
     const seed = getSessionSeed();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Read session storage after hydration to keep the server and initial client render identical.
     setNeurons(Array.from({ length: NEURON_COUNT }, (_, i) => generateNeuron(i, seed)));
   }, []);
 
@@ -117,31 +119,28 @@ function usePageVisible() {
   return visible;
 }
 
-const NeuronPath = memo(function NeuronPath({ neuron, time }: { neuron: Neuron; time: MotionValue<number> }) {
-  const neuronTime = useTransform(
-    time,
-    t => (t - neuron.delay * 1000) / (neuron.duration * 1000),
-  );
+const NeuronPath = memo(function NeuronPath({
+  neuron,
+  time,
+}: {
+  neuron: Neuron;
+  time: MotionValue<number>;
+}) {
+  const neuronTime = useTransform(time, t => (t - neuron.delay * 1000) / (neuron.duration * 1000));
 
-  const pathLength = useTransform(
-    neuronTime,
-    (t) => {
-      const cycle = t % 1;
-      if (cycle < 0.4) return cycle / 0.4 * 0.4;
-      return 0.4 - ((cycle - 0.4) / 0.6 * 0.4);
-    },
-  );
+  const pathLength = useTransform(neuronTime, t => {
+    const cycle = t % 1;
+    if (cycle < 0.4) return (cycle / 0.4) * 0.4;
+    return 0.4 - ((cycle - 0.4) / 0.6) * 0.4;
+  });
 
   const pathOffset = useTransform(neuronTime, t => t % 1);
 
-  const opacity = useTransform(
-    neuronTime,
-    (t) => {
-      const cycle = t % 1;
-      if (cycle < 0.4) return cycle / 0.4;
-      return 1 - ((cycle - 0.4) / 0.6);
-    },
-  );
+  const opacity = useTransform(neuronTime, t => {
+    const cycle = t % 1;
+    if (cycle < 0.4) return cycle / 0.4;
+    return 1 - (cycle - 0.4) / 0.6;
+  });
 
   return (
     <g>
@@ -178,7 +177,7 @@ export function HexGrid() {
   const isVisible = usePageVisible();
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none bg-transparent">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-transparent select-none">
       <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.1 }}
@@ -187,7 +186,8 @@ export function HexGrid() {
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
         }}
       >
         <m.div
@@ -206,7 +206,7 @@ export function HexGrid() {
         />
       </m.div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-[size:100px_100px] opacity-20" />
 
       {isVisible && (
         <svg className="absolute inset-0 size-full">

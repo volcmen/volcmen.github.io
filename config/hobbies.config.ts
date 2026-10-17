@@ -1,4 +1,4 @@
-import { Code, Disc, Film, Monitor, Server, Terminal, type LucideIcon } from 'lucide-react';
+import { Code, Disc, Film, type LucideIcon, Monitor, Server, Terminal } from 'lucide-react';
 
 interface Hobby {
   icon: LucideIcon;
@@ -12,7 +12,7 @@ const HOBBIES: Hobby[] = [
     icon: Monitor,
     title: 'Digital Preservation',
     description:
-      'Preserving the golden age of MS-DOS and arcade classics. I don\'t just play history; I emulate it.',
+      "Preserving the golden age of MS-DOS and arcade classics. I don't just play history; I emulate it.",
     accentClass: 'text-rose-500 group-hover:text-rose-500',
   },
   {

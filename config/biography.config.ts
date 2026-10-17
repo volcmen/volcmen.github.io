@@ -1,12 +1,5 @@
-import {
-  AudioWaveform,
-  Cpu,
-  Gamepad2,
-  Monitor,
-  ShieldCheck,
-  Server,
-  Terminal,
-} from 'lucide-react';
+import { AudioWaveform, Cpu, Gamepad2, Monitor, Server, ShieldCheck, Terminal } from 'lucide-react';
+
 import { BaseConfigItem } from './types';
 
 interface BiographyLog extends BaseConfigItem {
@@ -89,9 +82,9 @@ const BIOGRAPHY_LOGS: BiographyLog[] = [
     },
     status: 'COMPILING',
     content: [
-      'My formal training wasn\'t academic; it was a brute-force compilation in isolation. Hampered by a language barrier and search protocol failures, I was lost until I unearthed a localized digital archive of C++ and Java learning materials.',
-      'I built terminal calculators and logic puzzles, but simple utilities weren\'t enough. I wanted to build worlds. However, lacking GUI knowledge, I was confined to the terminal—forced to render imagination in pure text. I engineered complex text adventures like Zork and even rendered simple 2D shooter using nothing but ASCII symbols.',
-      'Then came the catalyst: JavaScript: The Definitive Guide. It was the decryption key for the web\'s architecture. Armed with this new protocol, I pivoted to the browser as my runtime. I ported the physics engine of Gravity Defied directly into the DOM—a raw experiment using vanilla JavaScript to prove the web could handle complex kinetics.',
+      "My formal training wasn't academic; it was a brute-force compilation in isolation. Hampered by a language barrier and search protocol failures, I was lost until I unearthed a localized digital archive of C++ and Java learning materials.",
+      "I built terminal calculators and logic puzzles, but simple utilities weren't enough. I wanted to build worlds. However, lacking GUI knowledge, I was confined to the terminal—forced to render imagination in pure text. I engineered complex text adventures like Zork and even rendered simple 2D shooter using nothing but ASCII symbols.",
+      "Then came the catalyst: JavaScript: The Definitive Guide. It was the decryption key for the web's architecture. Armed with this new protocol, I pivoted to the browser as my runtime. I ported the physics engine of Gravity Defied directly into the DOM—a raw experiment using vanilla JavaScript to prove the web could handle complex kinetics.",
       'Later, when Node.js released, it shattered the browser sandbox completely, allowing me to create a CLI or a server, and unify the entire stack.',
       'The Pandora Box was opened.',
     ],
@@ -131,13 +124,13 @@ const BIOGRAPHY_LOGS: BiographyLog[] = [
     content: [
       'Between 2015 and 2016, my creative output expanded from visual code to audible frequencies. I became obsessed with the architecture of sound, heavily inspired by the underground Demoscene.',
       'I was captivated by the work of legends like Jesper Kyd, who defined an era by merging hypnotic trackers with bleeding-edge visuals. Watching code and music fuse into a single experience sparked a new ambition in me.',
-      'I mastered FL Studio and Ableton Live, treating the Digital Audio Workstation (DAW) like an IDE. I wasn\'t just composing music; I was engineering it—debugging beats, optimizing mixing chains, and compiling raw waveforms into atmospheric soundscapes. This period taught me that rhythm and logic are not opposites; they are the same language spoken in different dialects.',
+      "I mastered FL Studio and Ableton Live, treating the Digital Audio Workstation (DAW) like an IDE. I wasn't just composing music; I was engineering it—debugging beats, optimizing mixing chains, and compiling raw waveforms into atmospheric soundscapes. This period taught me that rhythm and logic are not opposites; they are the same language spoken in different dialects.",
     ],
   },
   {
     id: '07',
     title: 'CURRENT_STATE',
-    subtitle: 'THE ARCHITECT\'S PARADOX',
+    subtitle: "THE ARCHITECT'S PARADOX",
     year: 'NOW',
     icon: Cpu,
     colors: {
@@ -148,8 +141,8 @@ const BIOGRAPHY_LOGS: BiographyLog[] = [
     status: 'RUNNING',
     content: [
       'Today, that same obsession drives my career. I am a Engineer who builds systems with the same curiosity I had as a kid editing .ini files.',
-      'Ironically, I still play games the way I build software. When I boot up Skyrim or Fallout: New Vegas, I don\'t just play—I spend weeks curating a 500+ mod list, resolving conflicts, and optimizing load orders.',
-      'For me, creating the perfectly stable system is more fun than the game itself. Creating is my mojo, my life\'s directive. I am thrilled to build, to create, and I simply thrive on converting raw entropy into structured logic.',
+      "Ironically, I still play games the way I build software. When I boot up Skyrim or Fallout: New Vegas, I don't just play—I spend weeks curating a 500+ mod list, resolving conflicts, and optimizing load orders.",
+      "For me, creating the perfectly stable system is more fun than the game itself. Creating is my mojo, my life's directive. I am thrilled to build, to create, and I simply thrive on converting raw entropy into structured logic.",
       'I have deployed code across the entire spectrum—from the agile trenches of scrappy startups and boutique agencies to the massive infrastructure of a Fortune-scale giant. I have built games in Unity, engineered resilient digital ecosystems from the void to live deployment, and pushed web technologies to their theoretical limits. But at my core, I am still that kid in 1999—forever trying to bypass the interface to touch the raw code that defines the system',
     ],
   },

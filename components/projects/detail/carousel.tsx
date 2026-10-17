@@ -1,17 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import Image from 'next/image';
+import { type PointerEvent, useEffect, useRef, useState } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from '@/components/ui/carousel';
-import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
@@ -136,8 +136,7 @@ export function ProjectCarousel({ images, title, className }: ProjectCarouselPro
         y: (centerY - clickY) * scaleDelta,
       });
       setIsZoomedIn(true);
-    }
-    else {
+    } else {
       setIsZoomedIn(false);
       setOffset({ x: 0, y: 0 });
     }
@@ -171,23 +170,13 @@ export function ProjectCarousel({ images, title, className }: ProjectCarouselPro
 
       <div className="mt-4 flex justify-center">
         <Badge variant="secondary">
-          {current}
-          {' '}
-          /
-          {images.length}
+          {current} /{images.length}
         </Badge>
       </div>
 
-      <Dialog
-        open={!!zoomedImage}
-        onOpenChange={handleDialogOpenChange}
-      >
+      <Dialog open={!!zoomedImage} onOpenChange={handleDialogOpenChange}>
         <DialogContent className="flex h-[85vh] w-[85vw] max-w-none flex-col overflow-hidden p-0 sm:max-w-[85vw]">
-          <DialogTitle className="sr-only">
-            {title}
-            {' '}
-            - Zoomed Image
-          </DialogTitle>
+          <DialogTitle className="sr-only">{title} - Zoomed Image</DialogTitle>
           <button
             type="button"
             className={`relative flex h-full w-full items-center justify-center overflow-auto ${isZoomedIn ? (isPanning ? 'cursor-grabbing' : 'cursor-zoom-out') : 'cursor-zoom-in'}`}
@@ -197,9 +186,7 @@ export function ProjectCarousel({ images, title, className }: ProjectCarouselPro
             onPointerCancel={handlePointerUp}
           >
             {zoomedImage && (
-              <div
-                className="relative h-full w-full overflow-hidden transition-all duration-200 ease-in-out"
-              >
+              <div className="relative h-full w-full overflow-hidden transition-all duration-200 ease-in-out">
                 <Image
                   src={zoomedImage}
                   alt={`${title} - Zoomed`}

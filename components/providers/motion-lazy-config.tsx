@@ -3,8 +3,7 @@
 import { LazyMotion } from 'motion/react';
 import * as React from 'react';
 
-const loadFeatures = () =>
-  import('motion/react').then(res => res.domAnimation);
+const loadFeatures = () => import('motion/react').then(res => res.domAnimation);
 
 interface MotionLazyConfigProps {
   children: React.ReactNode;

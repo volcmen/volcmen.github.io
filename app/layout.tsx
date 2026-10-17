@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono, Rajdhani } from 'next/font/google';
-import { cn } from '@/lib/utils';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Nav } from '@/components/nav';
+
 import { HexGrid } from '@/components/effects/hex-grid';
 import { Scanlines } from '@/components/effects/scanlines';
+import { Nav } from '@/components/nav';
 import { MotionLazyConfig } from '@/components/providers/motion-lazy-config';
+import { ThemeProvider } from '@/components/theme-provider';
+import { cn } from '@/lib/utils';
 import './globals.css';
 
 const jetbrainsMono = JetBrains_Mono({
@@ -24,7 +25,8 @@ export const metadata: Metadata = {
     default: 'SYNAPTIC UPLINK // VOLCMEN',
     template: '%s // VOLCMEN_ARCHIVE',
   },
-  description: 'Senior Architect. Peeking behind the curtain of the web to build robust systems and retro-fueled experiences.',
+  description:
+    'Senior Architect. Peeking behind the curtain of the web to build robust systems and retro-fueled experiences.',
 
   applicationName: 'VOLCMEN_OS_V8',
   keywords: ['Full Stack', 'Cyberpunk', 'System Architect', 'Game Dev', 'React', 'Next.js'],
@@ -61,9 +63,7 @@ export default function RootLayout({
             <Scanlines />
             <Nav />
 
-            <main className="relative z-10 flex-1">
-              {children}
-            </main>
+            <main className="relative z-10 flex-1">{children}</main>
           </MotionLazyConfig>
         </ThemeProvider>
       </body>

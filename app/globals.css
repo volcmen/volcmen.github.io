@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,16 +50,21 @@
 
   @keyframes grid-flow {
     0% {
-      background-position: 0 0, 0 0, 40px 70px;
+      background-position:
+        0 0,
+        0 0,
+        40px 70px;
     }
 
     100% {
-      background-position: 0 140px, 0 140px, 40px 210px;
+      background-position:
+        0 140px,
+        0 140px,
+        40px 210px;
     }
   }
 
   @keyframes gradient-x {
-
     0%,
     100% {
       background-size: 200% 200%;
@@ -83,14 +88,15 @@
   }
 
   @keyframes pulse-glow {
-
     0%,
     100% {
       box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
     }
 
     50% {
-      box-shadow: 0 0 40px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3);
+      box-shadow:
+        0 0 40px rgba(251, 191, 36, 0.6),
+        0 0 60px rgba(251, 191, 36, 0.3);
     }
   }
 
@@ -147,7 +153,6 @@
   }
 
   @keyframes tech-pulse {
-
     0%,
     100% {
       opacity: 0.1;
@@ -224,8 +229,6 @@
   --input: hsl(240 7% 18%);
   --ring: hsl(45 98% 58%);
 
-
-
   /* Chart colors mapped to theme */
   --chart-1: var(--primary);
   --chart-2: var(--secondary);
@@ -268,7 +271,6 @@
   --grid-color: hsl(214.3 31.8% 91.4%); /* Slate 200 Grid */
   --scanline-color: rgba(6, 182, 212, 0.05);
 
-
   --chart-1: var(--primary);
   --chart-2: var(--secondary);
   --chart-3: var(--accent);
@@ -306,22 +308,48 @@
   }
 
   .scanlines {
-    background: repeating-linear-gradient(0deg,
-        transparent,
-        transparent 2px,
-        var(--scanline-color) 2px,
-        var(--scanline-color) 4px);
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--scanline-color) 2px,
+      var(--scanline-color) 4px
+    );
     pointer-events: none;
     z-index: 50;
   }
 
   .hex-grid {
     background-image:
-      linear-gradient(30deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color)),
-      linear-gradient(150deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color)),
-      linear-gradient(30deg, var(--grid-color) 12%, transparent 12.5%, transparent 87%, var(--grid-color) 87.5%, var(--grid-color));
+      linear-gradient(
+        30deg,
+        var(--grid-color) 12%,
+        transparent 12.5%,
+        transparent 87%,
+        var(--grid-color) 87.5%,
+        var(--grid-color)
+      ),
+      linear-gradient(
+        150deg,
+        var(--grid-color) 12%,
+        transparent 12.5%,
+        transparent 87%,
+        var(--grid-color) 87.5%,
+        var(--grid-color)
+      ),
+      linear-gradient(
+        30deg,
+        var(--grid-color) 12%,
+        transparent 12.5%,
+        transparent 87%,
+        var(--grid-color) 87.5%,
+        var(--grid-color)
+      );
     background-size: 80px 140px;
-    background-position: 0 0, 0 0, 40px 70px;
+    background-position:
+      0 0,
+      0 0,
+      40px 70px;
     opacity: 0.1;
   }
 
@@ -330,7 +358,7 @@
   }
 
   .animate-glitch {
-    animation: glitch 1s cubic-bezier(.25, .46, .45, .94) both infinite;
+    animation: glitch 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
   }
 
   .animate-shimmer {
@@ -352,8 +380,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-mono antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-background font-mono text-foreground antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   h1,
@@ -362,8 +390,8 @@
   h4,
   h5,
   h6 {
-    @apply font-display uppercase tracking-wider;
-    font-feature-settings: "ss01", "ss02";
+    @apply font-display tracking-wider uppercase;
+    font-feature-settings: 'ss01', 'ss02';
     line-height: 1.1;
   }
 

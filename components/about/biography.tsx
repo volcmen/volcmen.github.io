@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Terminal } from 'lucide-react';
 import { useMotionValue, useScroll, useTransform } from 'motion/react';
 import * as m from 'motion/react-m';
-import { Terminal } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { BIOGRAPHY_LOGS } from '@/config/biography.config';
+import { cn } from '@/lib/utils';
 
 interface BiographyProps {
   className?: string;
@@ -58,31 +58,35 @@ export function Biography({ className }: BiographyProps) {
   });
 
   return (
-    <section ref={containerRef} className={cn('max-w-5xl mx-auto w-full py-12', className)}>
+    <section ref={containerRef} className={cn('mx-auto w-full max-w-5xl py-12', className)}>
       <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-16 text-center space-y-4 will-change-[transform,opacity]"
+        className="mb-16 space-y-4 text-center will-change-[transform,opacity]"
       >
-        <div className="inline-flex items-center gap-2 text-primary font-mono text-xs tracking-widest uppercase mb-2">
+        <div className="mb-2 inline-flex items-center gap-2 font-mono text-xs tracking-widest text-primary uppercase">
           <Terminal className="size-4" />
           <span>System Logs</span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-display font-bold">
-          THE
-          {' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">SOURCE CODE</span>
+        <h2 className="font-display text-3xl font-bold md:text-4xl">
+          THE{' '}
+          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            SOURCE CODE
+          </span>
         </h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary/50 to-transparent mx-auto" />
+        <div className="mx-auto h-1 w-20 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       </m.div>
 
       <div className="relative">
-        <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-border/30 h-full" aria-hidden />
+        <div
+          className="absolute top-0 bottom-0 left-[20px] h-full w-px -translate-x-1/2 bg-border/30 md:left-1/2"
+          aria-hidden
+        />
 
         <m.div
           style={{ height: progressHeight }}
-          className="absolute left-[20px] md:left-1/2 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-primary via-secondary to-primary z-10 origin-top will-change-transform"
+          className="absolute top-0 left-[20px] z-10 w-px origin-top -translate-x-1/2 bg-gradient-to-b from-primary via-secondary to-primary will-change-transform md:left-1/2"
         />
 
         <div className="space-y-12 md:space-y-24">
@@ -100,32 +104,42 @@ export function Biography({ className }: BiographyProps) {
                 viewport={{ once: true, margin: '-10% 0px -10% 0px' }} // Adjusted margin for better mobile triggering
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className={cn(
-                  'relative z-20 flex flex-col md:flex-row gap-8 items-start will-change-[transform,opacity]',
+                  'relative z-20 flex flex-col items-start gap-8 will-change-[transform,opacity] md:flex-row',
                   !isEven && 'md:flex-row-reverse',
                 )}
               >
-                <div className="absolute left-[20px] md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20 top-0">
-                  <div className={cn(
-                    'size-10 rounded-full border-2 bg-background flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)]',
-                    log.colors.border,
-                  )}
+                <div className="absolute top-0 left-[20px] z-20 flex -translate-x-1/2 items-center justify-center md:left-1/2">
+                  <div
+                    className={cn(
+                      'flex size-10 items-center justify-center rounded-full border-2 bg-background shadow-[0_0_15px_rgba(0,0,0,0.5)]',
+                      log.colors.border,
+                    )}
                   >
                     <Icon className={cn('size-5', log.colors.text)} />
                   </div>
                 </div>
 
-                <div className={cn(
-                  'ml-12 md:ml-0 md:w-1/2 flex items-center',
-                  !isEven ? 'md:justify-start' : 'md:justify-end',
-                )}
-                >
-                  <div className={cn(
-                    'hidden md:flex flex-col',
-                    !isEven ? 'items-start text-left pl-12' : 'items-end text-right pr-12',
+                <div
+                  className={cn(
+                    'ml-12 flex items-center md:ml-0 md:w-1/2',
+                    !isEven ? 'md:justify-start' : 'md:justify-end',
                   )}
+                >
+                  <div
+                    className={cn(
+                      'hidden flex-col md:flex',
+                      !isEven ? 'items-start pl-12 text-left' : 'items-end pr-12 text-right',
+                    )}
                   >
-                    <span className={cn('text-5xl font-display font-black tracking-tighter opacity-20', log.colors.text)}>{log.year}</span>
-                    <div className="flex items-center gap-2 mt-1">
+                    <span
+                      className={cn(
+                        'font-display text-5xl font-black tracking-tighter opacity-20',
+                        log.colors.text,
+                      )}
+                    >
+                      {log.year}
+                    </span>
+                    <div className="mt-1 flex items-center gap-2">
                       <Badge variant="outline" className="font-mono text-[10px] tracking-wider">
                         OFFSET_0x
                         {log.id}
@@ -133,29 +147,35 @@ export function Biography({ className }: BiographyProps) {
                     </div>
                   </div>
                   {/* Mobile Only Header */}
-                  <div className="md:hidden flex flex-col pl-2">
-                    <span className={cn('text-2xl font-display font-bold', log.colors.text)}>{log.year}</span>
-                    <span className="text-xs font-mono text-muted-foreground">
+                  <div className="flex flex-col pl-2 md:hidden">
+                    <span className={cn('font-display text-2xl font-bold', log.colors.text)}>
+                      {log.year}
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground">
                       OFFSET_0x
                       {log.id}
                     </span>
                   </div>
                 </div>
 
-                <div className="w-full md:w-1/2 pl-12 md:pl-0">
+                <div className="w-full pl-12 md:w-1/2 md:pl-0">
                   <div className={cn('relative', !isEven ? 'md:pr-12' : 'md:pl-12')}>
                     <Card
                       className={cn(
-                        'relative overflow-hidden border bg-card/40 hover:bg-card/60 transition-colors group transform-gpu',
+                        'group relative transform-gpu overflow-hidden border bg-card/40 transition-colors hover:bg-card/60',
                         log.colors.border,
                       )}
-
                     >
-                      <div className={cn('absolute inset-0 opacity-50 group-hover:opacity-100 transition-opacity', log.colors.bg)} />
+                      <div
+                        className={cn(
+                          'absolute inset-0 opacity-50 transition-opacity group-hover:opacity-100',
+                          log.colors.bg,
+                        )}
+                      />
 
                       {log.image && (
-                        <div className="relative w-full h-48 overflow-hidden bg-muted/20">
-                          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+                        <div className="relative h-48 w-full overflow-hidden bg-muted/20">
+                          <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-transparent to-transparent" />
                           <Image
                             src={log.image}
                             alt={log.title}
@@ -167,36 +187,44 @@ export function Biography({ className }: BiographyProps) {
                         </div>
                       )}
 
-                      <CardContent className="p-6 md:p-8 relative z-10 space-y-4">
+                      <CardContent className="relative z-10 space-y-4 p-6 md:p-8">
                         <div>
-                          <h3 className={cn('text-xl md:text-2xl font-bold font-display tracking-tight', log.colors.text)}>
+                          <h3
+                            className={cn(
+                              'font-display text-xl font-bold tracking-tight md:text-2xl',
+                              log.colors.text,
+                            )}
+                          >
                             {log.title}
                           </h3>
-                          <p className="text-sm font-mono text-muted-foreground tracking-widest mt-1">
+                          <p className="mt-1 font-mono text-sm tracking-widest text-muted-foreground">
                             {` // ${log.subtitle}`}
                           </p>
                         </div>
 
-                        <div className="space-y-4 text-muted-foreground leading-relaxed text-sm">
+                        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
                           {log.content.map(paragraph => (
-                            <p key={`${log.id}-p-${paragraph.slice(0, 24)}`} className={cn(paragraph === log.content[0] && 'text-foreground font-medium')}>
+                            <p
+                              key={`${log.id}-p-${paragraph.slice(0, 24)}`}
+                              className={cn(
+                                paragraph === log.content[0] && 'font-medium text-foreground',
+                              )}
+                            >
                               {paragraph}
                             </p>
                           ))}
                         </div>
 
-                        <div className="pt-6 flex flex-wrap gap-2 items-center border-t border-border/50 mt-4">
+                        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/50 pt-6">
                           <Badge
                             variant="outline"
                             className={cn(
-                              'font-mono text-[10px] bg-background/50 backdrop-blur-sm',
+                              'bg-background/50 font-mono text-[10px] backdrop-blur-sm',
                               log.colors.border,
                               log.colors.text,
                             )}
                           >
-                            STATUS:
-                            {' '}
-                            {log.status}
+                            STATUS: {log.status}
                           </Badge>
                         </div>
                       </CardContent>

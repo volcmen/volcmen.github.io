@@ -1,11 +1,10 @@
-import * as m from 'motion/react-m';
 import { ArrowUpRight } from 'lucide-react';
+import * as m from 'motion/react-m';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-
 import { Social, SOCIAL_LINKS } from '@/config/social.config';
+import { cn } from '@/lib/utils';
 
 function SocialCard({ social, index }: { social: Social; index: number }) {
   const Icon = social.icon;
@@ -24,9 +23,9 @@ function SocialCard({ social, index }: { social: Social; index: number }) {
     >
       <Card
         className={cn(
-          'h-full border bg-card/50 backdrop-blur-sm shadow-sm transition-transform duration-300',
+          'h-full border bg-card/50 shadow-sm backdrop-blur-sm transition-transform duration-300',
           social.colors.border,
-          'hover:-translate-y-1 hover:shadow-lg hover:bg-card/80',
+          'hover:-translate-y-1 hover:bg-card/80 hover:shadow-lg',
         )}
       >
         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
@@ -38,7 +37,7 @@ function SocialCard({ social, index }: { social: Social; index: number }) {
             className={cn(
               'size-4 text-muted-foreground transition-transform duration-300',
               social.colors.text,
-              'group-hover:-translate-y-1 group-hover:translate-x-1',
+              'group-hover:translate-x-1 group-hover:-translate-y-1',
             )}
           />
         </CardHeader>
@@ -50,7 +49,7 @@ function SocialCard({ social, index }: { social: Social; index: number }) {
           <Badge
             variant="outline"
             className={cn(
-              'font-mono text-[10px] bg-transparent',
+              'bg-transparent font-mono text-[10px]',
               social.colors.border,
               social.colors.text,
             )}
@@ -77,7 +76,7 @@ export function SocialUplink({ className }: SocialUplinkProps) {
         className="mb-8 flex items-center gap-2"
       >
         <div className="h-px flex-1 bg-border" aria-hidden />
-        <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+        <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
           DATA_UPLINK_ESTABLISHED
         </span>
         <div className="h-px flex-1 bg-border" aria-hidden />

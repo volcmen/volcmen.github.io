@@ -1,4 +1,9 @@
-import { SiGithub as Github, SiSpotify as Spotify, SiSoundcloud as Soundcloud } from '@icons-pack/react-simple-icons';
+import {
+  SiGithub as Github,
+  SiSoundcloud as Soundcloud,
+  SiSpotify as Spotify,
+} from '@icons-pack/react-simple-icons';
+
 import { BaseConfigItem } from './types';
 
 interface Social extends BaseConfigItem {

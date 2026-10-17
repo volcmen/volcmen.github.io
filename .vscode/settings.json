@@ -1,6 +1,6 @@
 {
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    }
+  "editor.formatOnSave": false,
+  "eslint.enable": false,
+  "npm.packageManager": "bun",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

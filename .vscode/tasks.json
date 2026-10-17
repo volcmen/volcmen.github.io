@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Bun: validate",
+      "type": "process",
+      "command": "bun",
+      "args": ["run", "validate"],
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Bun: format",
+      "type": "process",
+      "command": "bun",
+      "args": ["fmt"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Bun: fix lint",
+      "type": "process",
+      "command": "bun",
+      "args": ["lint", "--fix"],
+      "problemMatcher": []
+    }
+  ]
+}

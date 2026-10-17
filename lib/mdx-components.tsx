@@ -2,27 +2,17 @@ import type { MDXComponents } from 'mdx/types';
 
 export function getMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => (
-      <h1 className="text-4xl font-bold tracking-tight mb-4">{children}</h1>
-    ),
+    h1: ({ children }) => <h1 className="mb-4 text-4xl font-bold tracking-tight">{children}</h1>,
     h2: ({ children }) => (
-      <h2 className="text-3xl font-semibold tracking-tight mb-3 mt-8">{children}</h2>
+      <h2 className="mt-8 mb-3 text-3xl font-semibold tracking-tight">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-2xl font-semibold tracking-tight mb-2 mt-6">{children}</h3>
+      <h3 className="mt-6 mb-2 text-2xl font-semibold tracking-tight">{children}</h3>
     ),
-    p: ({ children }) => (
-      <p className="mb-4 leading-7">{children}</p>
-    ),
-    ul: ({ children }) => (
-      <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
-    ),
-    ol: ({ children }) => (
-      <ol className="list-decimal list-inside mb-4 space-y-2">{children}</ol>
-    ),
-    li: ({ children }) => (
-      <li className="leading-7">{children}</li>
-    ),
+    p: ({ children }) => <p className="mb-4 leading-7">{children}</p>,
+    ul: ({ children }) => <ul className="mb-4 list-inside list-disc space-y-2">{children}</ul>,
+    ol: ({ children }) => <ol className="mb-4 list-inside list-decimal space-y-2">{children}</ol>,
+    li: ({ children }) => <li className="leading-7">{children}</li>,
     a: ({ href, children }) => (
       <a
         href={href}
@@ -34,13 +24,13 @@ export function getMDXComponents(components: MDXComponents): MDXComponents {
       </a>
     ),
     code: ({ children }) => (
-      <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>
+      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">{children}</code>
     ),
     pre: ({ children }) => (
-      <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4">{children}</pre>
+      <pre className="mb-4 overflow-x-auto rounded-lg bg-muted p-4">{children}</pre>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-4">{children}</blockquote>
+      <blockquote className="my-4 border-l-4 border-primary pl-4 italic">{children}</blockquote>
     ),
     ...components,
   };

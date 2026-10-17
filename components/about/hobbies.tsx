@@ -1,8 +1,8 @@
 import { Card, CardHeader } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { SocialUplink } from './social-uplink';
-
 import { HOBBIES } from '@/config/hobbies.config';
+import { cn } from '@/lib/utils';
+
+import { SocialUplink } from './social-uplink';
 
 interface HobbiesProps {
   className?: string;
@@ -12,12 +12,10 @@ export function Hobbies({ className }: HobbiesProps) {
   return (
     <section className={cn('mx-auto w-full max-w-5xl space-y-8', className)}>
       <header className="space-y-2 text-center">
-        <h2 className="text-3xl font-display font-bold tracking-tight">
-          PERSONAL
-          {' '}
-          <span className="text-primary">ARCHIVES</span>
+        <h2 className="font-display text-3xl font-bold tracking-tight">
+          PERSONAL <span className="text-primary">ARCHIVES</span>
         </h2>
-        <p className="text-sm font-mono uppercase text-muted-foreground">
+        <p className="font-mono text-sm text-muted-foreground uppercase">
           {' // Declassified hobby telemetry'}
         </p>
       </header>
@@ -31,12 +29,13 @@ export function Hobbies({ className }: HobbiesProps) {
             <CardHeader className="space-y-3">
               <Icon
                 aria-hidden
-                className={cn('h-8 w-8 text-muted-foreground transition-colors duration-200', accentClass)}
+                className={cn(
+                  'h-8 w-8 text-muted-foreground transition-colors duration-200',
+                  accentClass,
+                )}
               />
               <h3 className="font-display text-xl font-bold">{title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {description}
-              </p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
             </CardHeader>
           </Card>
         ))}

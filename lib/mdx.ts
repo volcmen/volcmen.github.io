@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+
 import matter from 'gray-matter';
 
 export interface Project {
@@ -71,14 +72,15 @@ const getProjectImages = (slug: string): string[] => {
 
   try {
     const files = fs.readdirSync(imagesDir, { withFileTypes: true });
-    const images = files.reduce<string[]>((acc, entry) => {
-      if (!entry.isFile()) return acc;
-      const file = entry.name;
-      const ext = file.toLowerCase().split('.').pop();
-      if (!ext || !IMAGE_EXTENSIONS.has(ext)) return acc;
-      acc.push(file);
-      return acc;
-    }, [])
+    const images = files
+      .reduce<string[]>((acc, entry) => {
+        if (!entry.isFile()) return acc;
+        const file = entry.name;
+        const ext = file.toLowerCase().split('.').pop();
+        if (!ext || !IMAGE_EXTENSIONS.has(ext)) return acc;
+        acc.push(file);
+        return acc;
+      }, [])
       .sort((a, b) => {
         const numA = parseInt(a.match(/\d+/)?.[0] || '0', 10);
         const numB = parseInt(b.match(/\d+/)?.[0] || '0', 10);
@@ -88,15 +90,18 @@ const getProjectImages = (slug: string): string[] => {
 
     projectImagesCache.set(slug, images);
     return images;
-  }
-  catch (error) {
+  } catch (error) {
     console.error(`Error reading images for project ${slug}:`, error);
     projectImagesCache.set(slug, []);
     return [];
   }
 };
 
-const buildProject = (slug: string, frontmatter: RawFrontmatter, content: string): Project | null => {
+const buildProject = (
+  slug: string,
+  frontmatter: RawFrontmatter,
+  content: string,
+): Project | null => {
   if (!frontmatter.title || !frontmatter.description) return null;
 
   const tech = frontmatter.tech || frontmatter.tags || [];
@@ -131,8 +136,7 @@ export function getProjectBySlug(slug: string): Project | null {
     const project = buildProject(realSlug, parsed.data as RawFrontmatter, parsed.content);
     if (project) projectCache.set(realSlug, project);
     return project ?? null;
-  }
-  catch (error) {
+  } catch (error) {
     console.error(`Error getting project ${realSlug}:`, error);
     return null;
   }
@@ -142,12 +146,13 @@ export function getAllProjects(): Project[] {
   if (!fs.existsSync(PROJECTS_DIR)) return [];
 
   const files = fs.readdirSync(PROJECTS_DIR, { withFileTypes: true });
-  const projects = files.reduce<Project[]>((acc, entry) => {
-    if (!entry.isFile() || !entry.name.endsWith('.mdx')) return acc;
-    const project = getProjectBySlug(entry.name);
-    if (project) acc.push(project);
-    return acc;
-  }, [])
+  const projects = files
+    .reduce<Project[]>((acc, entry) => {
+      if (!entry.isFile() || !entry.name.endsWith('.mdx')) return acc;
+      const project = getProjectBySlug(entry.name);
+      if (project) acc.push(project);
+      return acc;
+    }, [])
     .sort((a, b) => {
       if (a.year !== b.year) return b.year - a.year;
       return a.title.localeCompare(b.title);
